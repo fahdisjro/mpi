@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Media Pembelajaran – Masyarakat Multikultural</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Sora:wght@500;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f0f2f8;--surf:#ffffff;--surf2:#f5f6fb;
+  --border:#dde1ee;--border2:#b8c0d8;
+  --acc:#5b21b6;--acc2:#7c3aed;--acc3:#4c1d95;
+  --teal:#0d9488;--teal2:#14b8a6;
+  --orange:#ea580c;--red:#dc2626;--green:#059669;
+  --gold:#d97706;
+  --text:#1e1b4b;--text2:#4b5563;--text3:#9ca3af;
+  --h:58px;
+  --fbase:14px;
+}
+@media(max-width:768px){:root{--fbase:13px;--h:48px;}}
+@media(min-width:1200px){:root{--fbase:15px;}}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column;}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 70% 50% at 5% 0%,rgba(91,33,182,0.07) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 60% at 95% 100%,rgba(13,148,136,0.06) 0%,transparent 60%),
+    repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(148,163,184,0.07) 40px),
+    repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(148,163,184,0.07) 40px);
+}
+
+/* HEADER */
+header{
+  position:relative;z-index:10;height:var(--h);flex-shrink:0;
+  background:linear-gradient(135deg,#2d1069,#4c1d95,#5b21b6);
+  border-bottom:1px solid rgba(255,255,255,0.1);
+  display:flex;align-items:center;padding:0 14px;gap:10px;
+  box-shadow:0 3px 14px rgba(45,16,105,0.5);
+}
+.logo{display:flex;align-items:center;gap:9px;flex-shrink:0;}
+.logo-icon{
+  width:37px;height:37px;border-radius:8px;
+  background:linear-gradient(135deg,#fde68a,#f59e0b);
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;box-shadow:0 2px 8px rgba(0,0,0,.2);
+}
+.logo-text{font-family:'Sora',sans-serif;font-size:clamp(13px,2vw,17px);font-weight:800;color:#ffffff;line-height:1.1;}
+.logo-sub{font-size:9px;color:rgba(255,255,255,0.65);font-weight:400;letter-spacing:.04em;}
+nav{display:flex;gap:1px;flex:1;overflow-x:auto;}
+nav::-webkit-scrollbar{display:none;}
+.nb{
+  position:relative;background:none;border:none;
+  color:rgba(255,255,255,0.65);cursor:pointer;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(11px,1.2vw,13px);font-weight:600;
+  padding:0 11px;height:var(--h);white-space:nowrap;transition:color .2s;
+  display:flex;align-items:center;gap:5px;
+}
+.nb::after{content:'';position:absolute;bottom:0;left:8px;right:8px;height:2.5px;background:linear-gradient(90deg,#fde68a,#f59e0b);transform:scaleX(0);transition:transform .22s;border-radius:2px 2px 0 0;}
+.nb:hover{color:rgba(255,255,255,0.92);}
+.nb.active{color:#fff;}
+.nb.active::after{transform:scaleX(1);}
+.nb-icon{font-size:15px;}
+
+/* Hamburger */
+#menuToggle{display:none;background:none;border:none;cursor:pointer;padding:6px;color:#fff;flex-shrink:0;touch-action:manipulation;}
+@media(max-width:640px){
+  header{flex-wrap:nowrap;padding:0 10px;}
+  .logo-text{font-size:14px;}
+  .logo-sub{display:none;}
+  #menuToggle{display:flex;align-items:center;justify-content:center;margin-left:auto;}
+  nav{display:none;flex-direction:column;position:fixed;top:var(--h);right:0;left:0;z-index:999;background:linear-gradient(180deg,#2d1069,#4c1d95);border-bottom:1px solid rgba(255,255,255,.15);box-shadow:0 8px 24px rgba(0,0,0,.35);overflow:visible;gap:0;flex:none;}
+  nav.open{display:flex;}
+  .nb{height:50px;width:100%;text-align:left;padding:0 18px;border-bottom:1px solid rgba(255,255,255,.07);font-size:14px;display:flex;align-items:center;gap:10px;}
+  .nb::after{display:none;}
+  .nb.active{background:rgba(255,255,255,.08);}
+}
+
+/* APP */
+#app{position:relative;z-index:1;flex:1;overflow:hidden;display:flex;flex-direction:column;}
+.page{display:none;flex:1;overflow:hidden;}
+.page.active{display:flex;flex-direction:column;}
+@keyframes fu{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.page.active{animation:fu .22s ease;}
+.scroll{flex:1;overflow-y:auto;padding:10px 14px 14px;}
+.scroll::-webkit-scrollbar{width:4px;}
+.scroll::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+
+/* HERO */
+.hero{
+  background:linear-gradient(135deg,#2d1069,#5b21b6,#7c3aed);
+  border-radius:10px;padding:12px 18px;margin-bottom:9px;
+  display:flex;align-items:center;gap:20px;position:relative;overflow:hidden;flex-shrink:0;
+  box-shadow:0 4px 20px rgba(91,33,182,.25);
+}
+.hero::before{content:'🌍';position:absolute;right:14px;top:-6px;font-size:70px;opacity:.08;pointer-events:none;}
+.hero::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none;}
+.h-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.15em;color:#c4b5fd;text-transform:uppercase;margin-bottom:3px;}
+.h-title{font-family:'Sora',sans-serif;font-size:clamp(14px,2.2vw,20px);font-weight:800;color:#fff;line-height:1.2;}
+.h-title span{color:#fde68a;}
+.h-desc{font-size:11.5px;color:#c4b5fd;line-height:1.55;max-width:500px;margin-top:4px;}
+.h-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 10px;font-size:10px;color:#e9d5ff;margin-top:6px;}
+
+/* CARDS */
+.card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:12px 15px;margin-bottom:8px;transition:border-color .2s,box-shadow .2s;box-shadow:0 1px 4px rgba(30,27,75,0.06);}
+.card:hover{border-color:var(--border2);box-shadow:0 3px 12px rgba(30,27,75,0.09);}
+.ch{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.ci{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
+.ci.p{background:rgba(91,33,182,.1);}
+.ci.t{background:rgba(13,148,136,.1);}
+.ci.o{background:rgba(234,88,12,.1);}
+.ci.g{background:rgba(5,150,105,.1);}
+.ci.r{background:rgba(220,38,38,.1);}
+.ci.y{background:rgba(217,119,6,.1);}
+.ct{font-family:'Sora',sans-serif;font-size:clamp(13px,1.5vw,15px);font-weight:700;color:var(--acc3);}
+.card p{font-size:clamp(12px,1.3vw,13.5px);line-height:1.7;color:var(--text2);margin-bottom:6px;}
+.card p:last-child{margin-bottom:0;}
+.card h4{font-size:clamp(10px,1.1vw,11.5px);font-weight:700;color:var(--acc);letter-spacing:.08em;text-transform:uppercase;margin:10px 0 5px;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+
+/* CONCEPT GRID */
+.concept-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:7px;margin-top:6px;}
+.concept-item{background:var(--surf2);border:1px solid var(--border);border-radius:8px;padding:9px 11px;cursor:pointer;transition:all .2s;}
+.concept-item:hover{border-color:var(--acc2);background:#f5f0ff;transform:translateY(-1px);box-shadow:0 3px 10px rgba(91,33,182,.1);}
+.concept-item strong{display:block;font-size:clamp(11px,1.2vw,13px);color:var(--acc3);margin-bottom:3px;}
+.concept-item span{font-size:clamp(10.5px,1.1vw,12px);color:var(--text2);line-height:1.5;}
+
+/* CHIPS */
+.chips{display:flex;gap:5px;margin:7px 0;flex-wrap:wrap;}
+.chip{border-radius:6px;padding:3px 9px;font-size:clamp(11px,1.2vw,12.5px);font-weight:600;}
+.chip-p{background:rgba(91,33,182,.08);border:1px solid rgba(91,33,182,.2);color:#4c1d95;}
+.chip-t{background:rgba(13,148,136,.08);border:1px solid rgba(13,148,136,.2);color:#0f766e;}
+.chip-o{background:rgba(234,88,12,.08);border:1px solid rgba(234,88,12,.2);color:#c2410c;}
+.chip-g{background:rgba(5,150,105,.08);border:1px solid rgba(5,150,105,.2);color:#047857;}
+
+/* LIST */
+.olist{list-style:none;}
+.olist li{display:flex;align-items:flex-start;gap:7px;font-size:clamp(12px,1.3vw,13.5px);color:var(--text2);line-height:1.65;padding:5px 0;border-bottom:1px solid var(--border);}
+.olist li:last-child{border-bottom:none;}
+.olist li::before{content:'›';color:var(--acc);font-weight:700;font-size:16px;margin-top:-1px;}
+
+/* SEPARATOR */
+.sep{display:flex;align-items:center;gap:8px;margin:9px 0 6px;}
+.sep span{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--acc);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;font-weight:700;}
+.sep::before,.sep::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* NOTEBOX */
+.notebox{background:#fef3c7;border:1px solid #fde68a;border-radius:8px;padding:9px 13px;margin-top:8px;}
+.notebox .nt{font-size:9.5px;font-weight:700;color:var(--gold);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px;}
+.notebox p{font-size:clamp(11.5px,1.2vw,13px);color:#92400e;line-height:1.6;margin:0;}
+.infobox{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:9px 13px;margin-top:8px;}
+.infobox .nt{font-size:9.5px;font-weight:700;color:#059669;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px;}
+.infobox p{font-size:clamp(11.5px,1.2vw,13px);color:#065f46;line-height:1.6;margin:0;}
+
+/* ─────── PETA KONSEP (INTERACTIVE MAP) ─────── */
+#page-petakonsep .scroll{overflow:hidden;display:flex;flex-direction:column;}
+.peta-wrap{flex:1;overflow:hidden;display:flex;flex-direction:column;gap:7px;}
+.peta-svg-wrap{flex:1;background:var(--surf);border:1px solid var(--border);border-radius:10px;overflow:hidden;position:relative;box-shadow:0 1px 4px rgba(30,27,75,0.06);}
+#petaSVG{width:100%;height:100%;}
+.peta-info{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:10px 14px;flex-shrink:0;min-height:72px;}
+.peta-info-title{font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--acc3);margin-bottom:4px;}
+.peta-info-text{font-size:12px;color:var(--text2);line-height:1.6;}
+
+/* ─────── SIMULASI DRAG & DROP ─────── */
+.sim-sosial-wrap{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex:1;min-height:0;overflow:hidden;}
+.sim-panel{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:12px;display:flex;flex-direction:column;overflow:hidden;}
+.sim-panel h3{font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--acc3);margin-bottom:8px;}
+.contoh-bank{display:flex;flex-wrap:wrap;gap:7px;overflow-y:auto;flex:1;}
+.contoh-card{
+  background:var(--surf2);border:1.5px dashed var(--border2);border-radius:8px;
+  padding:8px 10px;font-size:12px;font-weight:600;color:var(--text);cursor:grab;
+  user-select:none;touch-action:none;transition:all .2s;
+  display:flex;align-items:center;gap:6px;width:auto;
+}
+.contoh-card:hover{border-color:var(--acc2);background:#f5f0ff;color:var(--acc3);}
+.kategori-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;overflow-y:auto;flex:1;}
+.drop-zone{
+  min-height:100px;border:2px dashed var(--border2);border-radius:9px;
+  padding:8px;display:flex;flex-wrap:wrap;gap:6px;align-items:flex-start;
+  transition:all .2s;position:relative;
+}
+.drop-zone-label{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px;display:block;}
+.drop-hint{font-size:11px;color:var(--text3);width:100%;text-align:center;padding:8px 0;}
+.placed-card{
+  background:var(--surf);border:1.5px solid var(--border2);border-radius:7px;
+  padding:5px 8px;font-size:11px;font-weight:600;color:var(--text);
+  display:flex;align-items:center;gap:5px;position:relative;cursor:pointer;
+}
+.placed-card .rm-btn{position:absolute;top:-5px;right:-5px;background:#dc2626;border:none;border-radius:50%;width:16px;height:16px;font-size:9px;cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;padding:0;opacity:0;transition:opacity .15s;}
+.placed-card:hover .rm-btn{opacity:1;}
+
+/* ─────── EVALUASI (QUIZ) ─────── */
+.quiz-nav-header{display:flex;align-items:center;justify-content:space-between;padding:8px 13px;background:var(--surf);border:1px solid var(--border);border-radius:10px;margin-bottom:7px;flex-shrink:0;box-shadow:0 1px 3px rgba(30,27,75,.05);}
+.qprog{display:flex;gap:4px;flex-wrap:wrap;}
+.qprog-dot{width:26px;height:26px;border-radius:6px;border:1px solid var(--border);background:var(--surf2);font-size:9.5px;font-weight:700;color:var(--text3);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .17s;}
+.qprog-dot.answered{border-color:var(--acc2);color:var(--acc);background:#f5f0ff;}
+.qprog-dot.current{background:var(--acc);color:#fff;border-color:var(--acc);}
+.q-card{background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:14px;flex:1;display:flex;flex-direction:column;box-shadow:0 1px 4px rgba(30,27,75,.06);}
+.qnum{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--acc);letter-spacing:.1em;margin-bottom:5px;}
+.qtype-badge{display:inline-block;font-size:9px;font-weight:700;padding:2px 8px;border-radius:5px;margin-bottom:8px;letter-spacing:.04em;}
+.badge-mc{background:#f5f0ff;border:1px solid #c4b5fd;color:#4c1d95;}
+.badge-tf{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46;}
+.badge-ms{background:#fffbeb;border:1px solid #fde68a;color:#92400e;}
+.qtext{font-size:13.5px;color:var(--text);line-height:1.55;font-weight:600;margin-bottom:11px;}
+.opts{list-style:none;display:flex;flex-direction:column;gap:6px;}
+.opt{display:flex;align-items:flex-start;gap:9px;background:var(--surf2);border:1px solid var(--border);border-radius:8px;padding:9px 12px;cursor:pointer;transition:all .16s;font-size:12.5px;color:var(--text2);}
+.opt:hover{border-color:var(--acc2);background:#f5f0ff;color:var(--text);}
+.opt input{margin-top:2px;accent-color:var(--acc);cursor:pointer;}
+.opt.sel{border-color:var(--acc);background:#f5f0ff;color:var(--acc3);}
+.opt.correct{background:#ecfdf5;border-color:#10b981;color:#065f46;}
+.opt.wrong{background:#fff1f2;border-color:#f87171;color:#b91c1c;}
+.qfb{margin-top:9px;padding:8px 11px;border-radius:7px;font-size:12px;display:none;}
+.qfb.on{display:block;}
+.qfb.ok{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0;}
+.qfb.bad{background:#fff1f2;color:#b91c1c;border:1px solid #fecdd3;}
+.quiz-foot{display:flex;align-items:center;gap:7px;padding-top:8px;flex-shrink:0;}
+.btn-qnav{padding:7px 15px;border-radius:7px;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .17s;border:none;}
+.btn-prev{background:var(--surf2);border:1px solid var(--border);color:var(--text2);}
+.btn-prev:hover{border-color:var(--acc);color:var(--acc);background:#f5f0ff;}
+.btn-next{background:linear-gradient(135deg,#4c1d95,#7c3aed);color:#fff;box-shadow:0 2px 8px rgba(91,33,182,.25);}
+.btn-next:hover{box-shadow:0 4px 14px rgba(91,33,182,.35);}
+.btn-submit-q{background:linear-gradient(135deg,#065f46,#10b981);color:#fff;}
+.btn-submit-q:hover{box-shadow:0 3px 12px rgba(16,185,129,.3);}
+.btn-reset-q{background:var(--surf2);border:1px solid var(--border);color:var(--text2);}
+.btn-reset-q:hover{border-color:var(--acc);color:var(--acc);background:#f5f0ff;}
+.qcounter{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);}
+
+/* SCORE OVERLAY */
+.score-overlay{position:fixed;inset:0;background:rgba(15,10,40,.55);display:none;align-items:center;justify-content:center;z-index:200;backdrop-filter:blur(8px);}
+.score-overlay.on{display:flex;}
+.score-box{background:#fff;border:1px solid var(--border);border-radius:16px;padding:34px 48px;text-align:center;box-shadow:0 20px 60px rgba(30,27,75,.2);animation:fu .28s ease;min-width:290px;}
+.score-big{font-family:'Sora',sans-serif;font-size:72px;font-weight:800;color:var(--acc);line-height:1;}
+.score-pct{font-size:20px;color:var(--text3);margin-top:2px;}
+.score-sub{font-size:13px;color:var(--text2);margin:8px 0 4px;}
+.score-grade{font-size:16px;font-weight:700;margin-top:9px;}
+.score-actions{display:flex;gap:9px;justify-content:center;margin-top:20px;}
+.btn-score{padding:9px 22px;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:12.5px;font-weight:700;cursor:pointer;border:none;transition:all .17s;}
+.btn-review{background:var(--surf2);border:1px solid var(--border);color:var(--text2);}
+.btn-review:hover{border-color:var(--acc);color:var(--acc);background:#f5f0ff;}
+.btn-ulangi{background:linear-gradient(135deg,#4c1d95,#7c3aed);color:#fff;}
+.btn-ulangi:hover{box-shadow:0 4px 14px rgba(91,33,182,.35);}
+
+/* ─────── LOADING SCREEN ─────── */
+#loadScreen{
+  position:fixed;inset:0;z-index:99999;
+  background:linear-gradient(135deg,#1e0540 0%,#3b0d8e 50%,#5b21b6 100%);
+  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:22px;
+  transition:opacity .5s ease;
+}
+#loadScreen.hide{opacity:0;pointer-events:none;}
+.ls-logo{display:flex;flex-direction:column;align-items:center;gap:14px;}
+.ls-icon{width:68px;height:68px;border-radius:16px;background:linear-gradient(135deg,#fde68a,#f59e0b);display:flex;align-items:center;justify-content:center;font-size:36px;box-shadow:0 8px 30px rgba(245,158,11,.35);animation:iconPulse 2s ease-in-out infinite;}
+@keyframes iconPulse{0%,100%{box-shadow:0 8px 30px rgba(245,158,11,.35);}50%{box-shadow:0 12px 40px rgba(245,158,11,.55);}}
+.ls-title{font-family:'Sora',sans-serif;font-size:clamp(18px,3vw,26px);font-weight:800;color:#fff;text-align:center;line-height:1.2;}
+.ls-sub{font-size:13px;color:rgba(255,255,255,.65);text-align:center;max-width:280px;}
+.ls-bar-wrap{width:200px;height:4px;background:rgba(255,255,255,.15);border-radius:2px;overflow:hidden;}
+.ls-bar{height:100%;background:linear-gradient(90deg,#fde68a,#f59e0b);width:0%;border-radius:2px;transition:width .25s ease;}
+.ls-pct{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,.5);margin-top:5px;}
+
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes popIn{from{opacity:0;transform:scale(0.7)}to{opacity:1;transform:scale(1)}}
+@keyframes stepZoom{0%{transform:scale(1)}50%{transform:scale(1.04)}100%{transform:scale(1)}}
+.step-box-zoom{animation:stepZoom .35s cubic-bezier(.34,1.56,.64,1);}
+
+/* TEORI PAGE */
+#page-teori .scroll{overflow:hidden;display:flex;flex-direction:column;}
+#page-teori .card{margin-bottom:6px;padding:10px 13px;}
+#page-teori .card p{font-size:clamp(11px,1.15vw,13px);line-height:1.6;margin-bottom:4px;}
+#page-teori .two-col{gap:6px;}
+
+/* MATERI TABS */
+.tab-bar{display:flex;gap:4px;margin-bottom:9px;flex-wrap:wrap;}
+.tab-btn{padding:5px 12px;border-radius:20px;font-size:11.5px;font-weight:700;border:1.5px solid var(--border);background:var(--surf2);color:var(--text2);cursor:pointer;transition:all .2s;}
+.tab-btn.active{background:var(--acc);color:#fff;border-color:var(--acc);}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+/* VIDEO EMBED */
+.vid-wrap{background:#0f0f0f;border-radius:10px;overflow:hidden;margin-bottom:8px;}
+.vid-wrap iframe{width:100%;display:block;}
+
+/* TUGAS/DISKUSI */
+.disc-area{width:100%;border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:12.5px;color:var(--text);background:var(--surf2);resize:vertical;outline:none;transition:border-color .17s;line-height:1.6;margin-top:6px;}
+.disc-area:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(91,33,182,.1);}
+
+/* TOOLTIP */
+.tooltip-wrap{position:relative;display:inline-block;}
+.tooltip-wrap:hover .tooltip-box{display:block;}
+.tooltip-box{display:none;position:absolute;bottom:110%;left:50%;transform:translateX(-50%);background:#1e1b4b;color:#fff;font-size:11px;padding:5px 10px;border-radius:6px;white-space:nowrap;z-index:100;pointer-events:none;}
+
+/* ACCORDION */
+.accord-item{border:1px solid var(--border);border-radius:9px;margin-bottom:6px;overflow:hidden;}
+.accord-head{display:flex;align-items:center;justify-content:space-between;padding:10px 13px;cursor:pointer;background:var(--surf2);transition:background .17s;}
+.accord-head:hover{background:#f0ecff;}
+.accord-head h4{font-size:13px;font-weight:700;color:var(--text);margin:0;}
+.accord-arrow{font-size:12px;color:var(--acc);transition:transform .2s;}
+.accord-item.open .accord-arrow{transform:rotate(90deg);}
+.accord-body{display:none;padding:10px 13px;font-size:12.5px;color:var(--text2);line-height:1.65;}
+.accord-item.open .accord-body{display:block;}
+
+/* MAP STEPS */
+.map-step{display:flex;align-items:flex-start;gap:0;margin-bottom:0;position:relative;}
+.step-box{border-radius:10px;padding:8px 11px;position:relative;margin-bottom:0;}
+</style>
+</head>
+<body>
+
+<!-- LOADING SCREEN -->
+<div id="loadScreen">
+  <div class="ls-logo">
+    <div class="ls-icon">🌏</div>
+    <div class="ls-title">Masyarakat<br>Multikultural</div>
+    <div class="ls-sub">Media Pembelajaran Sosiologi · Kelas X</div>
+  </div>
+  <div>
+    <div class="ls-bar-wrap"><div class="ls-bar" id="lsBar"></div></div>
+    <div class="ls-pct" id="lsPct">Memuat... 0%</div>
+  </div>
+</div>
+
+<!-- AUDIO -->
+<audio id="clickSfx" src="https://denicendrianto41.github.io/tring.wav" preload="auto"></audio>
+<audio id="correctSfx" src="https://denicendrianto41.github.io/tring.wav" preload="auto"></audio>
+<audio id="wrongSfx" src="https://denicendrianto41.github.io/blup.wav" preload="auto"></audio>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    <div class="logo-icon">🌏</div>
+    <div>
+      <div class="logo-text">Sosiologi</div>
+      <div class="logo-sub">Fase E / Kelas X · SMA/MA</div>
+    </div>
+  </div>
+  <nav id="mainNav">
+    <button class="nb active" onclick="show('beranda',this);closeNav()"><span class="nb-icon">🏠</span>Beranda</button>
+    <button class="nb" onclick="show('teori',this);closeNav()"><span class="nb-icon">📖</span>Materi</button>
+    <button class="nb" onclick="show('petakonsep',this);closeNav()"><span class="nb-icon">🗺️</span>Peta Konsep</button>
+    <button class="nb" onclick="show('aktivitas',this);closeNav()"><span class="nb-icon">🎯</span>Aktivitas</button>
+    <button class="nb" onclick="show('evaluasi',this);closeNav()"><span class="nb-icon">✅</span>Evaluasi</button>
+    <button class="nb" onclick="show('diskusi',this);closeNav()"><span class="nb-icon">💬</span>Diskusi</button>
+  </nav>
+  <button id="menuToggle" onclick="toggleNav()" aria-label="Menu">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect y="4" width="22" height="2.5" rx="1.25" fill="white"/><rect y="10" width="22" height="2.5" rx="1.25" fill="white"/><rect y="16" width="22" height="2.5" rx="1.25" fill="white"/></svg>
+  </button>
+</header>
+
+<div id="app">
+
+<!-- ═══════════════════ BERANDA ═══════════════════ -->
+<div id="page-beranda" class="page active">
+  <div class="scroll">
+    <div class="hero">
+      <div style="flex:1;">
+        <div class="h-label">Sosiologi · Kelas X · Fase E</div>
+        <div class="h-title">Masyarakat <span>Multikultural</span></div>
+        <div class="h-desc">Pelajari keberagaman budaya, ras, suku, dan agama dalam masyarakat Indonesia yang kaya dan harmonis.</div>
+        <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:8px;">
+          <div class="h-badge">🎯 5 Materi Utama</div>
+          <div class="h-badge">📝 10 Soal Evaluasi</div>
+          <div class="h-badge">🎮 Aktivitas Interaktif</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="card" style="cursor:pointer;" onclick="document.querySelector('.nb:nth-child(2)').click()">
+        <div class="ch"><div class="ci p">📖</div><div class="ct">Materi Teori</div></div>
+        <p>Pengertian, karakteristik, faktor pendorong, dan tantangan masyarakat multikultural di Indonesia.</p>
+        <div class="chips"><span class="chip chip-p">Konsep</span><span class="chip chip-t">Teori</span><span class="chip chip-g">Contoh</span></div>
+      </div>
+      <div class="card" style="cursor:pointer;" onclick="document.querySelector('.nb:nth-child(3)').click()">
+        <div class="ch"><div class="ci t">🗺️</div><div class="ct">Peta Konsep</div></div>
+        <p>Visualisasi interaktif hubungan antar konsep dalam masyarakat multikultural. Klik node untuk detail.</p>
+        <div class="chips"><span class="chip chip-t">Visual</span><span class="chip chip-p">Interaktif</span></div>
+      </div>
+      <div class="card" style="cursor:pointer;" onclick="document.querySelector('.nb:nth-child(4)').click()">
+        <div class="ch"><div class="ci o">🎯</div><div class="ct">Aktivitas Belajar</div></div>
+        <p>Klasifikasikan contoh-contoh keberagaman ke dalam kategori yang tepat dengan drag & drop.</p>
+        <div class="chips"><span class="chip chip-o">Drag &amp; Drop</span><span class="chip chip-g">Interaktif</span></div>
+      </div>
+      <div class="card" style="cursor:pointer;" onclick="document.querySelector('.nb:nth-child(5)').click()">
+        <div class="ch"><div class="ci g">✅</div><div class="ct">Evaluasi Mandiri</div></div>
+        <p>Uji pemahaman dengan 10 soal pilihan ganda bertingkat tentang masyarakat multikultural.</p>
+        <div class="chips"><span class="chip chip-g">10 Soal</span><span class="chip chip-p">Skor Otomatis</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="ch"><div class="ci y">🎯</div><div class="ct">Capaian Pembelajaran</div></div>
+      <ul class="olist">
+        <li>Menjelaskan pengertian dan karakteristik masyarakat multikultural</li>
+        <li>Mengidentifikasi faktor-faktor pendorong multikulturalisme di Indonesia</li>
+        <li>Menganalisis dampak positif dan tantangan masyarakat multikultural</li>
+        <li>Mendeskripsikan peran keberagaman budaya, ras, suku, dan agama</li>
+        <li>Menyajikan contoh-contoh nyata kehidupan multikultural di lingkungan sekitar</li>
+      </ul>
+    </div>
+
+    <div class="notebox">
+      <div class="nt">💡 Petunjuk Penggunaan</div>
+      <p>Mulailah dengan membaca <strong>Materi</strong>, lalu pelajari <strong>Peta Konsep</strong> untuk memahami hubungan antar konsep. Coba <strong>Aktivitas</strong> interaktif untuk memperkuat pemahaman, dan akhiri dengan <strong>Evaluasi</strong> untuk mengukur pencapaianmu.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ MATERI / TEORI ═══════════════════ -->
+<div id="page-teori" class="page">
+  <div class="scroll">
+    <div class="hero" style="margin-bottom:9px;">
+      <div>
+        <div class="h-label">Sosiologi · Fase E / Kelas X</div>
+        <div class="h-title">Masyarakat <span>Multikultural</span></div>
+        <div class="h-desc">Keberagaman sebagai kekayaan dan kekuatan bangsa Indonesia</div>
+      </div>
+    </div>
+
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab('tab-pengertian',this)">📌 Pengertian</button>
+      <button class="tab-btn" onclick="switchTab('tab-faktor',this)">🔍 Faktor Pendorong</button>
+      <button class="tab-btn" onclick="switchTab('tab-bentuk',this)">🌈 Bentuk Keberagaman</button>
+      <button class="tab-btn" onclick="switchTab('tab-dampak',this)">⚖️ Dampak & Tantangan</button>
+      <button class="tab-btn" onclick="switchTab('tab-integrasi',this)">🤝 Integrasi Sosial</button>
+    </div>
+
+    <!-- TAB: PENGERTIAN -->
+    <div id="tab-pengertian" class="tab-panel active">
+      <div class="card">
+        <div class="ch"><div class="ci p">📌</div><div class="ct">Pengertian Masyarakat Multikultural</div></div>
+        <p><strong>Masyarakat multikultural</strong> adalah masyarakat yang terdiri dari berbagai kelompok manusia dengan kebudayaan yang beragam, hidup berdampingan dalam satu sistem sosial yang sama. Multikulturalisme merupakan kondisi nyata kehidupan masyarakat yang majemuk, baik dari segi suku, ras, agama, maupun budaya.</p>
+        <p>Istilah <em>multikultural</em> berasal dari kata <em>multi</em> (banyak) dan <em>kultur</em> (budaya), yang merujuk pada keberagaman kebudayaan dalam satu masyarakat atau negara.</p>
+        <div class="chips">
+          <span class="chip chip-p">Multi = Banyak</span>
+          <span class="chip chip-t">Kultur = Budaya</span>
+          <span class="chip chip-g">Beragam Dalam Satu Kesatuan</span>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="card">
+          <div class="ch"><div class="ci t">👨‍🏫</div><div class="ct">J.S. Furnivall</div></div>
+          <p>Masyarakat majemuk adalah masyarakat yang terdiri atas dua atau lebih kelompok yang hidup berdampingan secara fisik namun terpisah dalam kehidupan sosial, ekonomi, dan budaya.</p>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ci t">👨‍🏫</div><div class="ct">Pierre L. van den Berghe</div></div>
+          <p>Ciri-ciri masyarakat majemuk antara lain: terjadi segmentasi ke dalam kelompok-kelompok berbeda, kurangnya konsensus nilai, seringnya konflik antarkelompok, dan integrasi sosial yang terjadi melalui paksaan.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="ch"><div class="ci p">🇮🇩</div><div class="ct">Indonesia sebagai Masyarakat Multikultural</div></div>
+        <p>Indonesia merupakan salah satu negara dengan tingkat keberagaman tertinggi di dunia. Dengan lebih dari <strong>17.000 pulau</strong>, <strong>300+ suku bangsa</strong>, <strong>700+ bahasa daerah</strong>, dan <strong>6 agama resmi</strong>, Indonesia adalah contoh nyata masyarakat multikultural.</p>
+        <div class="concept-grid">
+          <div class="concept-item" onclick="playClick()"><strong>🏝️ 17.000+ Pulau</strong><span>Kepulauan terbesar di dunia</span></div>
+          <div class="concept-item" onclick="playClick()"><strong>👥 300+ Suku</strong><span>Suku bangsa yang beragam</span></div>
+          <div class="concept-item" onclick="playClick()"><strong>🗣️ 700+ Bahasa</strong><span>Bahasa daerah yang kaya</span></div>
+          <div class="concept-item" onclick="playClick()"><strong>🕌 6 Agama</strong><span>Islam, Kristen, Katolik, Hindu, Buddha, Konghucu</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: FAKTOR PENDORONG -->
+    <div id="tab-faktor" class="tab-panel">
+      <div class="card">
+        <div class="ch"><div class="ci p">🔍</div><div class="ct">Faktor Pendorong Multikulturalisme</div></div>
+        <p>Terbentuknya masyarakat multikultural di Indonesia dipengaruhi oleh berbagai faktor, baik faktor alam maupun faktor sosial budaya.</p>
+      </div>
+
+      <div id="faktorAccord">
+        <div class="accord-item open">
+          <div class="accord-head" onclick="toggleAccord(this)">
+            <h4>🌏 Kondisi Geografis</h4><span class="accord-arrow">›</span>
+          </div>
+          <div class="accord-body">
+            Indonesia terdiri dari ribuan pulau yang terpisah oleh lautan. Kondisi geografis ini menyebabkan isolasi antar kelompok masyarakat sehingga berkembang kebudayaan yang berbeda-beda. Setiap pulau atau daerah mengembangkan adat istiadat, bahasa, dan tradisi sendiri yang khas.
+          </div>
+        </div>
+        <div class="accord-item">
+          <div class="accord-head" onclick="toggleAccord(this)">
+            <h4>🌿 Kondisi Ekologis</h4><span class="accord-arrow">›</span>
+          </div>
+          <div class="accord-body">
+            Perbedaan kondisi alam dan ekologi antardaerah (pegunungan, pesisir, hutan) mempengaruhi cara hidup dan kebudayaan masyarakatnya. Masyarakat pegunungan, pesisir, dan dataran rendah mengembangkan adaptasi budaya yang berbeda.
+          </div>
+        </div>
+        <div class="accord-item">
+          <div class="accord-head" onclick="toggleAccord(this)">
+            <h4>🚢 Sejarah Kedatangan Nenek Moyang</h4><span class="accord-arrow">›</span>
+          </div>
+          <div class="accord-body">
+            Bangsa Indonesia berasal dari berbagai gelombang migrasi nenek moyang dari daratan Asia. Percampuran berbagai kelompok manusia ini membawa keragaman fisik (ras) dan budaya yang semakin kaya dari waktu ke waktu.
+          </div>
+        </div>
+        <div class="accord-item">
+          <div class="accord-head" onclick="toggleAccord(this)">
+            <h4>🤝 Pengaruh Kebudayaan Asing</h4><span class="accord-arrow">›</span>
+          </div>
+          <div class="accord-body">
+            Selama berabad-abad, Indonesia berinteraksi dengan bangsa-bangsa asing seperti India, Arab, Cina, Portugal, Belanda, dan lainnya. Interaksi ini membawa pengaruh budaya, agama, dan bahasa yang memperkaya keberagaman Indonesia.
+          </div>
+        </div>
+        <div class="accord-item">
+          <div class="accord-head" onclick="toggleAccord(this)">
+            <h4>🌍 Iklim dan Cuaca</h4><span class="accord-arrow">›</span>
+          </div>
+          <div class="accord-body">
+            Perbedaan iklim antarwilayah Indonesia (tropis basah, semi-arid) mempengaruhi pola pertanian, sistem mata pencaharian, dan kebudayaan masyarakat setempat yang pada akhirnya menciptakan keragaman.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: BENTUK KEBERAGAMAN -->
+    <div id="tab-bentuk" class="tab-panel">
+      <div class="card">
+        <div class="ch"><div class="ci t">🌈</div><div class="ct">Bentuk-Bentuk Keberagaman di Indonesia</div></div>
+        <p>Keberagaman masyarakat Indonesia mencakup beberapa dimensi utama yang saling terkait dan membentuk identitas bangsa yang kaya.</p>
+      </div>
+
+      <div class="two-col">
+        <div class="card">
+          <div class="ch"><div class="ci p">👥</div><div class="ct">Keberagaman Suku Bangsa</div></div>
+          <p>Indonesia memiliki lebih dari 300 suku bangsa. Setiap suku memiliki bahasa, adat istiadat, pakaian tradisional, dan sistem nilai yang khas.</p>
+          <h4>Contoh suku besar:</h4>
+          <div class="chips">
+            <span class="chip chip-p">Jawa</span><span class="chip chip-t">Sunda</span><span class="chip chip-o">Batak</span>
+            <span class="chip chip-g">Dayak</span><span class="chip chip-p">Bugis</span><span class="chip chip-t">Minangkabau</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ci t">🧬</div><div class="ct">Keberagaman Ras</div></div>
+          <p>Ras adalah penggolongan manusia berdasarkan ciri fisik biologis. Di Indonesia terdapat beberapa kelompok ras yang hidup berdampingan.</p>
+          <h4>Ras di Indonesia:</h4>
+          <ul class="olist">
+            <li>Ras Mongoloid (Melayu, Mongoloid Asia)</li>
+            <li>Ras Melanesoid (Papua, Maluku)</li>
+            <li>Ras Kaukasoid (keturunan Eropa)</li>
+            <li>Ras Asiatic Mongoloid (Tionghoa)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ci o">🕌</div><div class="ct">Keberagaman Agama</div></div>
+          <p>Enam agama resmi diakui di Indonesia dan dijamin kebebasannya oleh negara berdasarkan Pasal 29 UUD 1945.</p>
+          <div class="concept-grid" style="grid-template-columns:repeat(3,1fr);">
+            <div class="concept-item"><strong>☪️ Islam</strong><span>Mayoritas penduduk</span></div>
+            <div class="concept-item"><strong>✝️ Kristen</strong><span>Protestan</span></div>
+            <div class="concept-item"><strong>✝️ Katolik</strong><span>Romawi Katolik</span></div>
+            <div class="concept-item"><strong>🕉️ Hindu</strong><span>Bali & lainnya</span></div>
+            <div class="concept-item"><strong>☸️ Buddha</strong><span>Tersebar di Indonesia</span></div>
+            <div class="concept-item"><strong>🏮 Konghucu</strong><span>Komunitas Tionghoa</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ci g">🎭</div><div class="ct">Keberagaman Budaya</div></div>
+          <p>Setiap suku bangsa memiliki kekayaan budaya yang unik, meliputi bahasa, kesenian, adat perkawinan, sistem kepercayaan, dan ritual keagamaan.</p>
+          <h4>Wujud budaya:</h4>
+          <ul class="olist">
+            <li>Tarian daerah (Kecak, Saman, Tor-Tor)</li>
+            <li>Musik tradisional (gamelan, sasando, kolintang)</li>
+            <li>Pakaian adat dan rumah adat</li>
+            <li>Upacara adat dan tradisi lisan</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: DAMPAK & TANTANGAN -->
+    <div id="tab-dampak" class="tab-panel">
+      <div class="two-col">
+        <div class="card">
+          <div class="ch"><div class="ci g">✅</div><div class="ct">Dampak Positif</div></div>
+          <ul class="olist">
+            <li>Kekayaan budaya yang menjadi aset bangsa dan daya tarik pariwisata</li>
+            <li>Mendorong kreativitas dan inovasi melalui perpaduan ide dari berbagai budaya</li>
+            <li>Memperkuat identitas nasional yang unik dan berwarna</li>
+            <li>Peluang pertukaran dan pembelajaran budaya antar kelompok</li>
+            <li>Sumber keunggulan kompetitif di era globalisasi</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ci r">⚠️</div><div class="ct">Tantangan & Potensi Konflik</div></div>
+          <ul class="olist">
+            <li>Primordialisme: kesetiaan berlebihan pada kelompok sendiri</li>
+            <li>Etnosentrisme: menganggap budaya sendiri paling baik</li>
+            <li>Prasangka dan diskriminasi antarkelompok</li>
+            <li>Stereotipe negatif yang memperkeruh hubungan sosial</li>
+            <li>Konflik SARA (Suku, Agama, Ras, dan Antargolongan)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="ch"><div class="ci y">💡</div><div class="ct">Konsep Penting: Primordialisme & Etnosentrisme</div></div>
+        <div class="two-col">
+          <div>
+            <h4>Primordialisme</h4>
+            <p>Perasaan kesukuan yang berlebihan hingga menganggap kelompoknya sendiri lebih penting dari kelompok lain. Bisa memicu konflik horizontal dalam masyarakat majemuk.</p>
+          </div>
+          <div>
+            <h4>Etnosentrisme</h4>
+            <p>Sikap yang memandang kebudayaan sendiri sebagai yang terbaik dan mengukur kebudayaan lain berdasarkan standar budayanya sendiri. Dapat memperkeruh hubungan antarbudaya.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="notebox">
+        <div class="nt">⚠️ Penting Dipahami</div>
+        <p>Konflik dalam masyarakat multikultural bukan berarti keberagaman itu buruk. Yang diperlukan adalah sikap toleransi, saling menghormati, dan kesadaran untuk hidup berdampingan secara damai dalam bingkai NKRI.</p>
+      </div>
+    </div>
+
+    <!-- TAB: INTEGRASI SOSIAL -->
+    <div id="tab-integrasi" class="tab-panel">
+      <div class="card">
+        <div class="ch"><div class="ci t">🤝</div><div class="ct">Integrasi Sosial</div></div>
+        <p><strong>Integrasi sosial</strong> adalah proses penyatuan unsur-unsur yang berbeda dalam masyarakat sehingga menjadi satu kesatuan yang utuh dan harmonis. Integrasi merupakan kunci keberhasilan masyarakat multikultural.</p>
+      </div>
+
+      <div class="card">
+        <div class="ch"><div class="ci p">🔑</div><div class="ct">Syarat Integrasi Sosial</div></div>
+        <div id="integrasiSteps"></div>
+      </div>
+
+      <div class="two-col">
+        <div class="card">
+          <div class="ch"><div class="ci t">🇮🇩</div><div class="ct">Bhinneka Tunggal Ika</div></div>
+          <p>Semboyan nasional Indonesia yang berarti "Berbeda-beda tetapi tetap satu." Mencerminkan tekad bangsa Indonesia untuk bersatu dalam keberagaman budaya, suku, agama, dan ras.</p>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ci g">🌱</div><div class="ct">Sikap yang Diperlukan</div></div>
+          <ul class="olist">
+            <li>Toleransi antarumat beragama</li>
+            <li>Menghargai perbedaan budaya</li>
+            <li>Berpikir kritis dan terbuka</li>
+            <li>Empati sosial terhadap sesama</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="infobox">
+        <div class="nt">🌟 Nilai Pancasila</div>
+        <p>Pancasila, khususnya sila ke-3 "Persatuan Indonesia", menjadi landasan ideologis dalam mengelola keberagaman. Nilai-nilai Pancasila membimbing masyarakat untuk hidup rukun dalam kemajemukan.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ PETA KONSEP ═══════════════════ -->
+<div id="page-petakonsep" class="page">
+  <div style="flex:1;overflow:hidden;padding:8px 14px 12px;display:flex;flex-direction:column;gap:8px;">
+    <div class="hero" style="margin-bottom:0;flex-shrink:0;">
+      <div>
+        <div class="h-label">Visualisasi Interaktif</div>
+        <div class="h-title">Peta <span>Konsep</span></div>
+        <div class="h-desc">Klik pada setiap node untuk melihat penjelasan detail konsep tersebut.</div>
+      </div>
+    </div>
+    <div class="peta-svg-wrap" style="flex:1;min-height:0;">
+      <svg id="petaSVG" viewBox="0 0 900 500" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;"></svg>
+    </div>
+    <div class="peta-info">
+      <div class="peta-info-title" id="petaTitle">🗺️ Peta Konsep Masyarakat Multikultural</div>
+      <div class="peta-info-text" id="petaText">Klik pada salah satu node di peta konsep di atas untuk melihat penjelasan detail tentang konsep tersebut. Setiap warna mewakili kategori konsep yang berbeda.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ AKTIVITAS ═══════════════════ -->
+<div id="page-aktivitas" class="page">
+  <div style="flex:1;overflow:hidden;padding:8px 14px 10px;display:flex;flex-direction:column;gap:7px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(10px,1.1vw,11.5px);letter-spacing:.12em;color:var(--acc);text-transform:uppercase;">Aktivitas Interaktif</div>
+        <div style="font-family:'Sora',sans-serif;font-size:clamp(15px,2vw,19px);font-weight:800;color:var(--acc3);">Klasifikasi <span style="color:var(--acc2)">Keberagaman</span></div>
+      </div>
+      <button onclick="resetAktivitas()" style="padding:6px 14px;border-radius:7px;border:1px solid var(--border);background:var(--surf2);color:var(--text2);font-family:'Plus Jakarta Sans',sans-serif;font-size:11.5px;font-weight:700;cursor:pointer;">↺ Reset</button>
+    </div>
+    <div class="sim-sosial-wrap">
+      <!-- Kiri: bank contoh -->
+      <div class="sim-panel">
+        <h3>📦 Contoh Keberagaman</h3>
+        <p style="font-size:11px;color:var(--text3);margin-bottom:8px;">Seret kartu ke kategori yang tepat di sebelah kanan.</p>
+        <div class="contoh-bank" id="contohBank"></div>
+      </div>
+      <!-- Kanan: kategori drop zones -->
+      <div class="sim-panel">
+        <h3>🗂️ Kategori</h3>
+        <div class="kategori-grid" id="kategoriGrid"></div>
+      </div>
+    </div>
+    <div id="aktivitas-result" style="display:none;" class="card" style="flex-shrink:0;"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════ EVALUASI ═══════════════════ -->
+<div id="page-evaluasi" class="page">
+  <div style="flex:1;overflow:hidden;padding:8px 14px 8px;display:flex;flex-direction:column;gap:7px;">
+    <div class="quiz-nav-header">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--acc);text-transform:uppercase;">Evaluasi Mandiri</div>
+        <div style="font-family:'Sora',sans-serif;font-size:clamp(14px,1.8vw,17px);font-weight:800;color:var(--acc3);">Soal Pilihan Ganda</div>
+      </div>
+      <div class="qprog" id="qprog"></div>
+    </div>
+    <div class="q-card" id="qCard"></div>
+    <div class="quiz-foot">
+      <button class="btn-qnav btn-prev" onclick="qNav(-1)" id="btnPrev">‹ Sebelumnya</button>
+      <button class="btn-qnav btn-next" onclick="qNav(1)" id="btnNext">Selanjutnya ›</button>
+      <button class="btn-qnav btn-submit-q" onclick="submitQuiz()" id="btnSubmit" style="display:none;">🏁 Selesai &amp; Nilai</button>
+      <button class="btn-qnav btn-reset-q" onclick="resetQuiz()">↺ Ulangi</button>
+      <span class="qcounter" id="qcounter"></span>
+    </div>
+  </div>
+</div>
+<div class="score-overlay" id="scoreOverlay">
+  <div class="score-box">
+    <div style="font-size:40px;margin-bottom:6px;" id="scoreEmoji">🎉</div>
+    <div class="score-big" id="scoreBig">0</div>
+    <div class="score-pct" id="scorePct">dari 10 soal</div>
+    <div class="score-sub" id="scoreSub"></div>
+    <div class="score-grade" id="scoreGrade"></div>
+    <div class="score-actions">
+      <button class="btn-score btn-review" onclick="document.getElementById('scoreOverlay').classList.remove('on')">📋 Tinjau Jawaban</button>
+      <button class="btn-score btn-ulangi" onclick="resetQuiz();document.getElementById('scoreOverlay').classList.remove('on')">🔄 Ulangi Kuis</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ DISKUSI ═══════════════════ -->
+<div id="page-diskusi" class="page">
+  <div style="flex:1;overflow:hidden;padding:8px 14px 8px;display:flex;flex-direction:column;gap:7px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(10px,1.1vw,11.5px);letter-spacing:.12em;color:var(--acc);text-transform:uppercase;">Refleksi &amp; Diskusi</div>
+        <div style="font-family:'Sora',sans-serif;font-size:clamp(15px,2vw,19px);font-weight:800;color:var(--acc3);">Pertanyaan <span style="color:var(--acc2)">Pemantik</span></div>
+      </div>
+      <button class="btn-qnav btn-reset-q" onclick="clearDQ()" style="border:1px solid var(--border);font-size:11.5px;padding:5px 13px;">↺ Hapus Jawaban</button>
+    </div>
+    <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr 1fr;gap:7px;min-height:0;">
+      <div class="card" style="margin-bottom:0;display:flex;flex-direction:column;">
+        <div class="ch" style="margin-bottom:4px;"><div class="ci p" style="min-width:22px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;">1</div><div class="ct" style="font-size:clamp(12px,1.4vw,14px);">Apa yang dimaksud dengan masyarakat multikultural?</div></div>
+        <textarea class="disc-area" placeholder="Tuliskan jawabanmu di sini..." oninput="saveDQ(1,this.value)" id="dq1" style="flex:1;resize:none;margin-top:0;min-height:0;"></textarea>
+      </div>
+      <div class="card" style="margin-bottom:0;display:flex;flex-direction:column;">
+        <div class="ch" style="margin-bottom:4px;"><div class="ci t" style="min-width:22px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;">2</div><div class="ct" style="font-size:clamp(12px,1.4vw,14px);">Sebutkan faktor geografis yang mendorong multikulturalisme Indonesia!</div></div>
+        <textarea class="disc-area" placeholder="Tuliskan jawabanmu di sini..." oninput="saveDQ(2,this.value)" id="dq2" style="flex:1;resize:none;margin-top:0;min-height:0;"></textarea>
+      </div>
+      <div class="card" style="margin-bottom:0;display:flex;flex-direction:column;">
+        <div class="ch" style="margin-bottom:4px;"><div class="ci o" style="min-width:22px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;">3</div><div class="ct" style="font-size:clamp(12px,1.4vw,14px);">Apa perbedaan primordialisme dan etnosentrisme? Berikan contohnya!</div></div>
+        <textarea class="disc-area" placeholder="Tuliskan jawabanmu di sini..." oninput="saveDQ(3,this.value)" id="dq3" style="flex:1;resize:none;margin-top:0;min-height:0;"></textarea>
+      </div>
+      <div class="card" style="margin-bottom:0;display:flex;flex-direction:column;">
+        <div class="ch" style="margin-bottom:4px;"><div class="ci g" style="min-width:22px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;">4</div><div class="ct" style="font-size:clamp(12px,1.4vw,14px);">Bagaimana cara menciptakan integrasi sosial di sekolahmu?</div></div>
+        <textarea class="disc-area" placeholder="Tuliskan jawabanmu di sini..." oninput="saveDQ(4,this.value)" id="dq4" style="flex:1;resize:none;margin-top:0;min-height:0;"></textarea>
+      </div>
+      <div class="card" style="margin-bottom:0;display:flex;flex-direction:column;grid-column:span 2;">
+        <div class="ch" style="margin-bottom:4px;"><div class="ci p" style="min-width:22px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;">5</div><div class="ct" style="font-size:clamp(12px,1.4vw,14px);">Menurut kamu, mengapa semboyan "Bhinneka Tunggal Ika" sangat penting bagi Indonesia yang multikultural?</div></div>
+        <textarea class="disc-area" placeholder="Tuliskan jawabanmu di sini..." oninput="saveDQ(5,this.value)" id="dq5" style="flex:1;resize:none;margin-top:0;min-height:0;"></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- #app -->
+
+<script>
+// ─────────── LOADING ───────────
+(function(){
+  const bar=document.getElementById('lsBar');
+  const pct=document.getElementById('lsPct');
+  const ls=document.getElementById('loadScreen');
+  let p=0;
+  const iv=setInterval(()=>{
+    p+=Math.random()*12+4;
+    if(p>=100){p=100;clearInterval(iv);setTimeout(()=>{ls.classList.add('hide');setTimeout(()=>ls.remove(),550);},350);}
+    bar.style.width=p+'%';
+    pct.textContent='Memuat... '+Math.round(p)+'%';
+  },120);
+})();
+
+// ─────────── AUDIO ───────────
+function playClick(){
+  const s=document.getElementById('clickSfx');
+  if(s){s.currentTime=0;s.play().catch(()=>{});}
+}
+function playCorrect(){
+  const s=document.getElementById('correctSfx');
+  if(s){s.currentTime=0;s.play().catch(()=>{});}
+}
+function playWrong(){
+  const s=document.getElementById('wrongSfx');
+  if(s){s.currentTime=0;s.play().catch(()=>{});}
+}
+
+// ─────────── NAV ───────────
+function toggleNav(){document.getElementById('mainNav').classList.toggle('open');}
+function closeNav(){document.getElementById('mainNav').classList.remove('open');}
+document.addEventListener('click',e=>{
+  if(!e.target.closest('nav')&&!e.target.closest('#menuToggle')) closeNav();
+});
+function show(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  btn.classList.add('active');
+  playClick();
+}
+
+// ─────────── TABS ───────────
+function switchTab(id,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  playClick();
+}
+
+// ─────────── ACCORDION ───────────
+function toggleAccord(head){
+  const item=head.parentElement;
+  item.classList.toggle('open');
+}
+
+// ─────────── INTEGRASI STEPS ───────────
+const integrasiData=[
+  {icon:'🤝',text:'<strong>Toleransi</strong> – Menghargai perbedaan dan keragaman antarkelompok'},
+  {icon:'⚖️',text:'<strong>Kesetaraan</strong> – Mengakui hak yang sama bagi semua warga tanpa diskriminasi'},
+  {icon:'💬',text:'<strong>Komunikasi</strong> – Membangun dialog yang terbuka dan saling menghormati'},
+  {icon:'🤲',text:'<strong>Kerja Sama</strong> – Berkolaborasi lintas kelompok untuk tujuan bersama'},
+  {icon:'🏛️',text:'<strong>Supremasi Hukum</strong> – Mengedepankan hukum sebagai acuan dalam menyelesaikan konflik'},
+];
+(function buildIntegrasiSteps(){
+  const colors=['#5b21b6','#0d9488','#ea580c','#059669','#d97706'];
+  const el=document.getElementById('integrasiSteps');
+  if(!el) return;
+  el.innerHTML=`<div style="position:relative;padding:4px 0;">
+    ${integrasiData.map((s,i)=>{
+      const c=colors[i%colors.length];
+      const nxtC=colors[(i+1)%colors.length];
+      const last=i===integrasiData.length-1;
+      const isR=i%2===0;
+      return `<div class="map-step">
+        ${isR?`
+          <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;z-index:1;margin-right:10px;">
+            <div style="width:40px;height:40px;border-radius:50%;background:${c};display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 3px 10px ${c}55;">${s.icon}</div>
+            ${!last?`<div style="width:0;flex:1;min-height:14px;border-left:3px dashed ${nxtC}88;margin-top:3px;margin-bottom:3px;"></div>`:''}
+          </div>
+          <div class="step-box" style="flex:1;background:${c}12;border:1.5px solid ${c}40;margin-bottom:${last?'0':'0'}px;">
+            <div style="position:absolute;left:-8px;top:12px;width:0;height:0;border-top:6px solid transparent;border-bottom:6px solid transparent;border-right:8px solid ${c}40;"></div>
+            <div style="font-size:8.5px;font-weight:700;color:${c};letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px;">Syarat ${i+1}</div>
+            <p style="font-size:12.5px;color:var(--text2);margin:0;line-height:1.55;">${s.text}</p>
+          </div>
+        `:`
+          <div class="step-box" style="flex:1;background:${c}12;border:1.5px solid ${c}40;margin-bottom:${last?'0':'0'}px;">
+            <div style="position:absolute;right:-8px;top:12px;width:0;height:0;border-top:6px solid transparent;border-bottom:6px solid transparent;border-left:8px solid ${c}40;"></div>
+            <div style="font-size:8.5px;font-weight:700;color:${c};letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px;">Syarat ${i+1}</div>
+            <p style="font-size:12.5px;color:var(--text2);margin:0;line-height:1.55;">${s.text}</p>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;z-index:1;margin-left:10px;">
+            <div style="width:40px;height:40px;border-radius:50%;background:${c};display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 3px 10px ${c}55;">${s.icon}</div>
+            ${!last?`<div style="width:0;flex:1;min-height:14px;border-left:3px dashed ${nxtC}88;margin-top:3px;margin-bottom:3px;"></div>`:''}
+          </div>
+        `}
+      </div>`;
+    }).join('')}
+  </div>`;
+})();
+
+// ─────────── PETA KONSEP SVG ───────────
+(function buildPetaKonsep(){
+  const svg=document.getElementById('petaSVG');
+  if(!svg) return;
+
+  const nodes=[
+    {id:'center',x:450,y:250,r:45,color:'#4c1d95',label:'Masyarakat\nMultikultural',emoji:'🌏',info:'Masyarakat Multikultural: Masyarakat yang terdiri dari berbagai kelompok dengan kebudayaan, suku, ras, dan agama yang beragam, hidup berdampingan dalam satu sistem sosial.'},
+    // Faktor
+    {id:'geografi',x:200,y:100,r:35,color:'#0d9488',label:'Geografi',emoji:'🏝️',info:'Faktor Geografis: Kondisi kepulauan Indonesia yang terpisah lautan menyebabkan perkembangan budaya yang berbeda-beda di setiap daerah.'},
+    {id:'sejarah',x:700,y:100,r:35,color:'#0d9488',label:'Sejarah',emoji:'📜',info:'Faktor Sejarah: Gelombang migrasi nenek moyang dan pengaruh budaya asing membawa keberagaman yang kaya di Indonesia.'},
+    // Bentuk
+    {id:'suku',x:150,y:270,r:32,color:'#ea580c',label:'Suku\nBangsa',emoji:'👥',info:'Keberagaman Suku: Indonesia memiliki 300+ suku bangsa dengan bahasa, adat, dan tradisi masing-masing yang unik.'},
+    {id:'agama',x:750,y:270,r:32,color:'#ea580c',label:'Agama',emoji:'🕌',info:'Keberagaman Agama: 6 agama resmi diakui di Indonesia (Islam, Kristen, Katolik, Hindu, Buddha, Konghucu) yang hidup berdampingan.'},
+    {id:'ras',x:200,y:400,r:32,color:'#ea580c',label:'Ras',emoji:'🧬',info:'Keberagaman Ras: Di Indonesia terdapat ras Mongoloid, Melanesoid, Kaukasoid, dan Asiatic Mongoloid yang hidup bersama.'},
+    {id:'budaya',x:700,y:400,r:32,color:'#ea580c',label:'Budaya',emoji:'🎭',info:'Keberagaman Budaya: Kekayaan budaya meliputi bahasa, kesenian, adat perkawinan, dan ritual yang unik di tiap suku.'},
+    // Dampak
+    {id:'integrasi',x:450,y:120,r:33,color:'#059669',label:'Integrasi\nSosial',emoji:'🤝',info:'Integrasi Sosial: Proses penyatuan kelompok berbeda dalam masyarakat menjadi satu kesatuan yang harmonis melalui toleransi dan kerja sama.'},
+    {id:'konflik',x:450,y:390,r:33,color:'#dc2626',label:'Tantangan\n& Konflik',emoji:'⚠️',info:'Tantangan: Primordialisme, etnosentrisme, prasangka, dan konflik SARA merupakan tantangan yang harus diatasi dalam masyarakat multikultural.'},
+    // Solusi
+    {id:'pancasila',x:310,y:190,r:28,color:'#d97706',label:'Pancasila',emoji:'🦅',info:'Pancasila: Dasar ideologi bangsa yang menjadi perekat keberagaman, khususnya sila ke-3 "Persatuan Indonesia".'},
+    {id:'bhineka',x:590,y:190,r:28,color:'#d97706',label:'Bhinneka\nTunggal Ika',emoji:'🎯',info:'Bhinneka Tunggal Ika: Semboyan nasional yang berarti "Berbeda-beda tetapi tetap satu", mencerminkan tekad bersatu dalam keberagaman.'},
+  ];
+
+  const edges=[
+    ['center','geografi'],['center','sejarah'],
+    ['center','suku'],['center','agama'],['center','ras'],['center','budaya'],
+    ['center','integrasi'],['center','konflik'],
+    ['center','pancasila'],['center','bhineka'],
+  ];
+
+  // Draw edges
+  edges.forEach(([a,b])=>{
+    const na=nodes.find(n=>n.id===a);
+    const nb=nodes.find(n=>n.id===b);
+    const line=document.createElementNS('http://www.w3.org/2000/svg','line');
+    line.setAttribute('x1',na.x);line.setAttribute('y1',na.y);
+    line.setAttribute('x2',nb.x);line.setAttribute('y2',nb.y);
+    line.setAttribute('stroke',nb.color);line.setAttribute('stroke-width','1.5');
+    line.setAttribute('stroke-opacity','0.4');line.setAttribute('stroke-dasharray','5,4');
+    svg.appendChild(line);
+  });
+
+  // Draw nodes
+  nodes.forEach(n=>{
+    const g=document.createElementNS('http://www.w3.org/2000/svg','g');
+    g.style.cursor='pointer';
+    g.setAttribute('transform',`translate(${n.x},${n.y})`);
+
+    // Shadow
+    const shadow=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    shadow.setAttribute('r',n.r+3);shadow.setAttribute('fill',n.color);shadow.setAttribute('opacity','0.12');shadow.setAttribute('cy','3');
+    g.appendChild(shadow);
+
+    // Circle
+    const c=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    c.setAttribute('r',n.r);c.setAttribute('fill',n.color);c.setAttribute('stroke','white');c.setAttribute('stroke-width','2');
+    c.style.filter='drop-shadow(0 2px 6px '+n.color+'66)';
+    g.appendChild(c);
+
+    // Emoji
+    const em=document.createElementNS('http://www.w3.org/2000/svg','text');
+    em.setAttribute('text-anchor','middle');em.setAttribute('dominant-baseline','middle');
+    em.setAttribute('font-size', n.id==='center'?'22':'16');
+    em.setAttribute('dy','-8');em.textContent=n.emoji;
+    g.appendChild(em);
+
+    // Label (multiline)
+    const lines=n.label.split('\n');
+    lines.forEach((l,i)=>{
+      const t=document.createElementNS('http://www.w3.org/2000/svg','text');
+      t.setAttribute('text-anchor','middle');t.setAttribute('dominant-baseline','middle');
+      t.setAttribute('fill','white');t.setAttribute('font-size',n.id==='center'?'10':'8.5');
+      t.setAttribute('font-weight','700');t.setAttribute('font-family','Plus Jakarta Sans, sans-serif');
+      t.setAttribute('dy', (8 + i*10)+'');
+      t.textContent=l;
+      g.appendChild(t);
+    });
+
+    g.addEventListener('click',()=>{
+      playClick();
+      document.getElementById('petaTitle').textContent=n.emoji+' '+n.label.replace('\n',' ');
+      document.getElementById('petaText').textContent=n.info;
+      // highlight
+      document.querySelectorAll('#petaSVG circle[data-node]').forEach(c=>c.setAttribute('stroke','white'));
+      c.setAttribute('stroke','#fde68a');
+    });
+    c.setAttribute('data-node',n.id);
+
+    // Hover
+    g.addEventListener('mouseenter',()=>{c.setAttribute('transform','scale(1.08)');c.style.transition='transform .15s';});
+    g.addEventListener('mouseleave',()=>{c.setAttribute('transform','scale(1)');});
+
+    svg.appendChild(g);
+  });
+})();
+
+// ─────────── AKTIVITAS DRAG & DROP ───────────
+const contohData=[
+  {id:'c1',label:'🎭 Tari Kecak',kat:'budaya'},
+  {id:'c2',label:'🕌 Masjid Istiqlal',kat:'agama'},
+  {id:'c3',label:'👘 Baju Kebaya',kat:'budaya'},
+  {id:'c4',label:'👥 Suku Dayak',kat:'suku'},
+  {id:'c5',label:'☸️ Waisak',kat:'agama'},
+  {id:'c6',label:'🧬 Ras Melanesoid',kat:'ras'},
+  {id:'c7',label:'🎵 Gamelan Jawa',kat:'budaya'},
+  {id:'c8',label:'👥 Suku Minangkabau',kat:'suku'},
+  {id:'c9',label:'🧬 Ras Mongoloid',kat:'ras'},
+  {id:'c10',label:'✝️ Natal',kat:'agama'},
+  {id:'c11',label:'👥 Suku Batak',kat:'suku'},
+  {id:'c12',label:'🏠 Rumah Gadang',kat:'budaya'},
+];
+
+const kategoriData=[
+  {id:'suku',label:'👥 Suku Bangsa',color:'#5b21b6',bg:'#f5f0ff'},
+  {id:'agama',label:'🕌 Agama',color:'#0d9488',bg:'#f0fdfa'},
+  {id:'ras',label:'🧬 Ras',color:'#ea580c',bg:'#fff7ed'},
+  {id:'budaya',label:'🎭 Budaya',color:'#059669',bg:'#f0fdf4'},
+];
+
+let placed={suku:[],agama:[],ras:[],budaya:[]};
+let dragItem=null;
+
+function buildAktivitas(){
+  const bank=document.getElementById('contohBank');
+  const grid=document.getElementById('kategoriGrid');
+  bank.innerHTML='';
+  grid.innerHTML='';
+  placed={suku:[],agama:[],ras:[],budaya:[]};
+
+  // Shuffle
+  const shuffled=[...contohData].sort(()=>Math.random()-0.5);
+
+  shuffled.forEach(d=>{
+    const card=document.createElement('div');
+    card.className='contoh-card';
+    card.setAttribute('data-id',d.id);
+    card.setAttribute('draggable','true');
+    card.setAttribute('touch-action','none');
+    card.innerHTML=d.label;
+    card.style.cssText+=';touch-action:none;';
+    attachDrag(card,d);
+    bank.appendChild(card);
+  });
+
+  kategoriData.forEach(k=>{
+    const zone=document.createElement('div');
+    zone.style.cssText=`border:2px dashed ${k.color}55;background:${k.bg};border-radius:9px;padding:8px;display:flex;flex-direction:column;gap:6px;transition:all .2s;position:relative;min-height:90px;`;
+    zone.setAttribute('data-kat',k.id);
+    zone.innerHTML=`<span class="drop-zone-label" style="color:${k.color};">${k.label}</span><span class="drop-hint" id="hint-${k.id}">← Seret ke sini</span>`;
+    zone.addEventListener('dragover',e=>{e.preventDefault();zone.style.borderStyle='solid';zone.style.background=k.bg.replace('ff','dd');});
+    zone.addEventListener('dragleave',()=>{zone.style.borderStyle='dashed';zone.style.background=k.bg;});
+    zone.addEventListener('drop',e=>{
+      e.preventDefault();zone.style.borderStyle='dashed';zone.style.background=k.bg;
+      if(dragItem) dropInto(k.id,dragItem,zone,k.color);
+    });
+    grid.appendChild(zone);
+  });
+
+  // Touch support
+  setupTouchDrop();
+}
+
+function attachDrag(card,data){
+  card.addEventListener('dragstart',e=>{
+    dragItem=data;
+    card.style.opacity='0.4';
+    e.dataTransfer.setData('text/plain',data.id);
+  });
+  card.addEventListener('dragend',()=>{card.style.opacity='1';});
+}
+
+function dropInto(kat,data,zone,color){
+  if(placed[kat].includes(data.id)) return;
+  const correct=data.kat===kat;
+  if(!correct){
+    // shake zone
+    zone.style.borderColor='#dc2626';
+    setTimeout(()=>{zone.style.borderColor='';},600);
+    playWrong();
+    showToast('❌ Bukan kategori yang tepat!','#dc2626');
+    return;
+  }
+  placed[kat].push(data.id);
+  // remove from bank
+  const bankCard=document.querySelector(`#contohBank [data-id="${data.id}"]`);
+  if(bankCard) bankCard.remove();
+  // add to zone
+  const hint=document.getElementById('hint-'+kat);
+  if(hint) hint.style.display='none';
+  const p=document.createElement('div');
+  p.className='placed-card';
+  p.style.cssText+=`border-color:${color}66;`;
+  p.innerHTML=data.label+`<button class="rm-btn" onclick="removeFromZone('${kat}','${data.id}',this)">✕</button>`;
+  zone.appendChild(p);
+  playCorrect();
+  checkAllDone();
+}
+
+function removeFromZone(kat,id,btn){
+  const data=contohData.find(d=>d.id===id);
+  placed[kat]=placed[kat].filter(x=>x!==id);
+  btn.parentElement.remove();
+  // re-add to bank
+  const card=document.createElement('div');
+  card.className='contoh-card';
+  card.setAttribute('data-id',id);
+  card.setAttribute('draggable','true');
+  card.innerHTML=data.label;
+  card.style.cssText+=';touch-action:none;';
+  attachDrag(card,data);
+  document.getElementById('contohBank').appendChild(card);
+  const hint=document.getElementById('hint-'+kat);
+  if(hint&&placed[kat].length===0) hint.style.display='';
+}
+
+function checkAllDone(){
+  const total=Object.values(placed).reduce((a,b)=>a+b.length,0);
+  if(total===contohData.length){
+    setTimeout(()=>{
+      showToast('🎉 Luar biasa! Semua kartu berhasil diklasifikasikan!','#059669');
+      playCorrect();
+    },300);
+  }
+}
+
+function resetAktivitas(){buildAktivitas();}
+
+// Touch drag for mobile
+let touchDragData=null, touchGhost=null;
+function setupTouchDrop(){
+  document.querySelectorAll('.contoh-card').forEach(card=>{
+    card.addEventListener('touchstart',e=>{
+      if(e.touches.length>1) return;
+      const id=card.getAttribute('data-id');
+      touchDragData=contohData.find(d=>d.id===id);
+      card.style.opacity='0.4';
+      touchGhost=card.cloneNode(true);
+      touchGhost.style.cssText+=';position:fixed;pointer-events:none;z-index:9999;opacity:0.8;transform:scale(0.9);transition:none;';
+      document.body.appendChild(touchGhost);
+      moveTouchGhost(e.touches[0]);
+      e.preventDefault();
+    },{passive:false});
+    card.addEventListener('touchmove',e=>{
+      if(!touchDragData) return;
+      moveTouchGhost(e.touches[0]);
+      e.preventDefault();
+    },{passive:false});
+    card.addEventListener('touchend',e=>{
+      if(!touchDragData) return;
+      const touch=e.changedTouches[0];
+      card.style.opacity='1';
+      if(touchGhost){touchGhost.remove();touchGhost=null;}
+      // find drop zone under finger
+      const el=document.elementFromPoint(touch.clientX,touch.clientY);
+      const zone=el?el.closest('[data-kat]'):null;
+      if(zone){
+        const kat=zone.getAttribute('data-kat');
+        const kd=kategoriData.find(k=>k.id===kat);
+        dropInto(kat,touchDragData,zone,kd.color);
+      }
+      touchDragData=null;
+    });
+  });
+}
+function moveTouchGhost(touch){
+  if(!touchGhost) return;
+  touchGhost.style.left=(touch.clientX-40)+'px';
+  touchGhost.style.top=(touch.clientY-20)+'px';
+}
+
+// Toast
+function showToast(msg,color){
+  const t=document.createElement('div');
+  t.style.cssText=`position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:${color};color:white;padding:10px 20px;border-radius:20px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,.2);animation:fadeIn .3s;white-space:nowrap;`;
+  t.textContent=msg;
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(),2500);
+}
+
+buildAktivitas();
+
+// ─────────── EVALUASI / QUIZ ───────────
+const quizData=[
+  {q:'Istilah "multikultural" terdiri dari kata "multi" dan "kultur". Apa arti kata "kultur"?',
+   opts:['Banyak','Budaya','Bangsa','Negara'],ans:1,
+   fb:'Kata "kultur" berasal dari bahasa Latin yang berarti budaya atau kebudayaan.',type:'mc'},
+  {q:'Siapakah tokoh yang mendefinisikan masyarakat majemuk sebagai masyarakat yang terdiri dari dua atau lebih kelompok yang hidup berdampingan secara fisik namun terpisah dalam kehidupan sosial?',
+   opts:['Emile Durkheim','J.S. Furnivall','Max Weber','Pierre L. van den Berghe'],ans:1,
+   fb:'J.S. Furnivall, sosiolog Inggris, mendefinisikan masyarakat majemuk dalam konteks kolonial Asia Tenggara.',type:'mc'},
+  {q:'Faktor geografis utama yang mendorong keberagaman budaya di Indonesia adalah...',
+   opts:['Banyaknya penduduk','Kondisi kepulauan yang dipisahkan lautan','Pengaruh budaya asing','Perkembangan teknologi'],ans:1,
+   fb:'Kondisi geografis Indonesia sebagai negara kepulauan menyebabkan setiap pulau mengembangkan budaya yang berbeda karena isolasi geografis.',type:'mc'},
+  {q:'Sikap yang menganggap kebudayaan sendiri paling baik dan dijadikan tolok ukur untuk menilai budaya lain disebut...',
+   opts:['Primordialisme','Relativisme budaya','Etnosentrisme','Multikulturalisme'],ans:2,
+   fb:'Etnosentrisme adalah kecenderungan menilai budaya lain berdasarkan standar budaya sendiri, yang dapat memperkeruh hubungan antar kelompok.',type:'mc'},
+  {q:'Pernyataan berikut yang BENAR tentang ras Melanesoid di Indonesia adalah...',
+   opts:['Mayoritas tinggal di Pulau Jawa','Banyak dijumpai di Papua dan Maluku','Merupakan ras yang paling banyak di Indonesia','Berasal dari daratan Asia Timur'],ans:1,
+   fb:'Ras Melanesoid banyak ditemukan di Papua dan sebagian Maluku, dengan ciri fisik kulit gelap dan rambut keriting.',type:'mc'},
+  {q:'Semboyan "Bhinneka Tunggal Ika" memiliki arti...',
+   opts:['Satu untuk semua','Berbeda-beda tetapi tetap satu','Bersatu dalam perbedaan','Indonesia merdeka'],ans:1,
+   fb:'"Bhinneka Tunggal Ika" berasal dari Kakawin Sutasoma karya Mpu Tantular yang berarti "Berbeda-beda tetapi tetap satu".',type:'mc'},
+  {q:'Manakah yang BUKAN merupakan agama resmi yang diakui di Indonesia?',
+   opts:['Konghucu','Shintoisme','Hinduisme','Buddha'],ans:1,
+   fb:'Enam agama resmi di Indonesia adalah Islam, Kristen, Katolik, Hindu, Buddha, dan Konghucu. Shintoisme adalah agama dari Jepang.',type:'mc'},
+  {q:'Kesetiaan yang berlebihan terhadap kelompok sendiri (suku, agama, ras) hingga menempatkan kepentingan kelompok di atas kepentingan nasional disebut...',
+   opts:['Etnosentrisme','Nasionalisme','Primordialisme','Pluralisme'],ans:2,
+   fb:'Primordialisme adalah ikatan kuat terhadap kelompok asal (suku, agama, daerah) yang bisa menghambat integrasi nasional jika berlebihan.',type:'mc'},
+  {q:'Proses penyatuan unsur-unsur yang berbeda dalam masyarakat menjadi satu kesatuan yang harmonis disebut...',
+   opts:['Asimilasi','Akulturasi','Integrasi sosial','Difusi budaya'],ans:2,
+   fb:'Integrasi sosial adalah proses yang membuat masyarakat dengan latar belakang berbeda dapat hidup bersama secara damai dan harmonis.',type:'mc'},
+  {q:'Indonesia memiliki keragaman budaya yang tinggi salah satunya karena faktor sejarah. Yang merupakan contoh pengaruh sejarah terhadap keberagaman Indonesia adalah...',
+   opts:['Banyaknya pulau di Indonesia','Kondisi iklim tropis','Masuknya agama dan budaya dari India, Arab, dan Cina','Letak geografis di khatulistiwa'],ans:2,
+   fb:'Pengaruh budaya India (Hindu-Buddha), Arab (Islam), dan Cina melalui jalur perdagangan telah memperkaya keberagaman budaya Indonesia selama berabad-abad.',type:'mc'},
+];
+
+let curQ=0, answers=Array(quizData.length).fill(null), submitted=false;
+
+function buildQuiz(){
+  const prog=document.getElementById('qprog');
+  prog.innerHTML='';
+  quizData.forEach((_,i)=>{
+    const d=document.createElement('div');
+    d.className='qprog-dot'+(i===0?' current':'');
+    d.textContent=i+1;
+    d.onclick=()=>{curQ=i;renderQ();};
+    prog.appendChild(d);
+  });
+  renderQ();
+}
+
+function renderQ(){
+  const q=quizData[curQ];
+  const card=document.getElementById('qCard');
+  const isAnswered=answers[curQ]!==null;
+  card.innerHTML=`
+    <div class="qnum">SOAL ${curQ+1} / ${quizData.length}</div>
+    <span class="qtype-badge badge-mc">PILIHAN GANDA</span>
+    <div class="qtext">${q.q}</div>
+    <ul class="opts">
+      ${q.opts.map((o,i)=>{
+        let cls='opt';
+        if(submitted&&isAnswered){
+          if(i===q.ans) cls+=' correct';
+          else if(answers[curQ]===i&&i!==q.ans) cls+=' wrong';
+        } else if(answers[curQ]===i) cls+=' sel';
+        return `<li class="${cls}" onclick="${submitted?'':'selectOpt('+i+')'}">
+          <input type="radio" name="q${curQ}" ${answers[curQ]===i?'checked':''} ${submitted?'disabled':''}> ${o}
+        </li>`;
+      }).join('')}
+    </ul>
+    <div class="qfb ${submitted&&isAnswered?(answers[curQ]===q.ans?'ok bad'.split(' ')[0]:'bad'):''} ${submitted&&isAnswered?'on':''}">
+      ${submitted&&isAnswered?(answers[curQ]===q.ans?'✅ Benar! ':'❌ Kurang tepat. ')+q.fb:''}
+    </div>`;
+  // Update prog dots
+  document.querySelectorAll('.qprog-dot').forEach((d,i)=>{
+    d.className='qprog-dot'+(i===curQ?' current':answers[i]!==null?' answered':'');
+  });
+  // Nav buttons
+  document.getElementById('btnPrev').style.display=curQ===0?'none':'';
+  document.getElementById('btnNext').style.display=curQ===quizData.length-1?'none':'';
+  document.getElementById('btnSubmit').style.display=curQ===quizData.length-1&&!submitted?'':'none';
+  document.getElementById('qcounter').textContent=`${answers.filter(a=>a!==null).length}/${quizData.length} dijawab`;
+}
+
+function selectOpt(i){
+  if(submitted) return;
+  answers[curQ]=i;
+  playClick();
+  renderQ();
+}
+
+function qNav(d){
+  curQ=Math.max(0,Math.min(quizData.length-1,curQ+d));
+  renderQ();
+}
+
+function submitQuiz(){
+  submitted=true;
+  const score=answers.reduce((s,a,i)=>s+(a===quizData[i].ans?1:0),0);
+  renderQ();
+  // Show score overlay
+  const pct=Math.round(score/quizData.length*100);
+  document.getElementById('scoreBig').textContent=score;
+  document.getElementById('scorePct').textContent=`dari ${quizData.length} soal (${pct}%)`;
+  const grades=[
+    [90,'🏆 Sangat Baik – Prestasi Luar Biasa!','#059669'],
+    [70,'👍 Baik – Terus Pertahankan!','#0d9488'],
+    [50,'💪 Cukup – Perlu Sedikit Belajar Lagi','#d97706'],
+    [0,'📚 Perlu Belajar Lebih Giat','#dc2626'],
+  ];
+  const [,gtxt,gcol]=grades.find(([thr])=>pct>=thr);
+  document.getElementById('scoreGrade').textContent=gtxt;
+  document.getElementById('scoreGrade').style.color=gcol;
+  document.getElementById('scoreEmoji').textContent=pct>=90?'🏆':pct>=70?'🎉':pct>=50?'💪':'📚';
+  document.getElementById('scoreSub').textContent=`Kamu menjawab ${score} soal dengan benar`;
+  document.getElementById('scoreOverlay').classList.add('on');
+  playCorrect();
+}
+
+function resetQuiz(){
+  curQ=0; answers=Array(quizData.length).fill(null); submitted=false;
+  buildQuiz();
+}
+
+buildQuiz();
+
+// ─────────── DISKUSI ───────────
+const dqAnswers={};
+function saveDQ(n,v){dqAnswers[n]=v;}
+function clearDQ(){
+  for(let i=1;i<=5;i++){
+    const el=document.getElementById('dq'+i);
+    if(el) el.value='';
+    dqAnswers[i]='';
+  }
+}
+</script>
+</body>
+</html>
